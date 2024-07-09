@@ -1,0 +1,190 @@
+nav.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.7rem;
+  background-color: #333;
+  color: #fff;
+}
+
+.navbar-icon {
+  font-size: 1.5rem;
+  cursor: pointer;
+  z-index: 1100; /* 메뉴 바보다 앞에 있도록 설정 */
+  position: fixed; /* 아이콘을 고정 위치로 설정 */
+  top: 1rem; /* 화면 상단에서의 위치 */
+  left: 1rem; /* 화면 왼쪽에서의 위치 */
+}
+
+.navbar-add-icon {
+  font-size: 1.5rem;
+  color: lightgray;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 50px;
+}
+
+.navbar-add-icon:hover {
+  color: #262632;
+}
+
+.link-content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.delete-icon {
+  font-size: 1rem;
+  width: 1rem;
+  flex-shrink: 0;
+  padding-left: 20px;
+}
+
+/* .navbar-user-id {
+  margin-left: 0.5rem; 
+  font-weight: bold;
+  color: white;
+  position: fixed; 
+  top: 8.5px; 
+  left: 3rem; 
+  height: 5px;
+  padding: 10px 15px 20px;
+  text-align: center;
+  letter-spacing: 1px;
+  font-size: 13px;
+  text-decoration: none;
+  background-color: #000d1b;
+  border: 2px solid #333;
+  border-radius: 10px;
+}  */
+
+.navbar-user-id {
+  font-weight: bold;
+  color: white;
+  height: 5px;
+  padding: 10px 15px 20px;
+  margin: 0px;
+  margin-right: 20px;
+  text-align: center;
+  letter-spacing: 1px;
+  font-size: 13px;
+  text-decoration: none;
+  background-color: #000d1b;
+  border-radius: 10px;
+}
+
+.navbar-right {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 5px;
+}
+
+.navbar-menu {
+  position: fixed;
+  top: 0;
+  left: -250px;
+  width: 250px;
+  height: 100%;
+  background-color: #444;
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 2rem;
+  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.5);
+  z-index: 1000;
+  transition: left 0.3s;
+}
+
+.navbar-menu.show {
+  left: 0;
+}
+
+.navbar-menu ul {
+  list-style: none;
+  padding: 0;
+  margin-top: 20px;
+  width: 100%;
+}
+
+.link {
+  text-decoration: none;
+  color: #ffffff;
+  font-size: 22px;
+  padding: 1rem 2rem;
+  position: relative;
+}
+
+.link::before,
+.link::after {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 2px;
+  background: white;
+  transform: scaleX(0);
+  transition: all 0.6s ease;
+}
+
+.link::before {
+  top: 0;
+  left: 0;
+  transform-origin: left;
+}
+
+.link::after {
+  bottom: 0;
+  left: 0;
+  transform-origin: right;
+}
+
+.link:hover::before,
+.link:hover::after {
+  transform: scaleX(1);
+}
+
+/* 링크 스타일 재정의 */
+a:link {
+  color: #ffffff; /* 링크 기본 색상 */
+  text-decoration: none;
+  font-size: 15px;
+}
+
+a:visited {
+  color: #ffffff; /* 방문한 링크 색상 */
+  text-decoration: none;
+  font-size: 15px;
+}
+
+a:active {
+  color: #ffffff; /* 클릭된 링크 색상 */
+  text-decoration: none;
+  font-size: 15px;
+}
+
+.new-page-input {
+  display: flex;
+  align-items: center;
+  margin: 0.8rem;
+}
+
+.new-page-input input {
+  padding: 0.4rem;
+  font-size: 15px;
+  margin-right: 0.5rem;
+}
+
+.new-page-input button {
+  padding: 0.4rem;
+  font-size: 15px;
+  cursor: pointer;
+}
+
+.logout-button {
+  display: flex;
+  height: 5px;
+  align-items: center;
+}
