@@ -1,0 +1,73 @@
+.board-detail-container {
+  width: 80%;
+  margin: auto;
+  padding: 20px;
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  margin-top: 30px;
+}
+
+h2 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+p {
+  margin-bottom: 10px;
+}
+
+span {
+  font-size: 12px;
+  color: #999;
+}
+
+.back-button,
+.new-comment button,
+.delete-button {
+  display: block;
+  margin: 10px 0;
+  padding: 10px 20px;
+  font-size: 14px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  background-color: #f7f7f7;
+  cursor: pointer;
+}
+
+.back-button:hover,
+.new-comment button:hover,
+.delete-button:hover {
+  background-color: #e7e7e7;
+}
+
+.comments {
+  margin-top: 20px;
+}
+
+.comments h3 {
+  margin-bottom: 10px;
+}
+
+.comment {
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  margin-bottom: 10px;
+}
+
+.new-comment {
+  margin-top: 20px;
+}
+
+.new-comment textarea {
+  width: 100%;
+  height: 100px;
+  padding: 10px;
+  font-size: 14px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  resize: none;
+  margin-bottom: 10px;
+}

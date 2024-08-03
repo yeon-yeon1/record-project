@@ -1,0 +1,107 @@
+/* Dailywrite.css */
+.container {
+  display: flex; /* 두 섹션 사이의 간격 */
+}
+
+.calendar-section {
+  display: flex;
+  flex-direction: column;
+  margin-left: 40px;
+  margin-right: 20px;
+}
+
+.diary-section {
+  flex: 2;
+  margin-right: 20px;
+}
+
+.react-calendar {
+  width: 500px !important; /* 캘린더의 너비를 500px로 설정 */
+}
+
+.react-calendar {
+  width: 100%;
+}
+
+.react-calendar__tile--now {
+  background-color: white;
+  color: #dc3545 !important;
+}
+
+.react-calendar__tile--now:enabled:hover,
+.react-calendar__tile--now:enabled:focus {
+  background-color: #e7e7e7 !important;
+  color: #dc3545 !important;
+}
+
+.react-calendar__tile--active {
+  background-color: #e7e7e7 !important;
+  color: #dc3545 !important;
+}
+
+.react-calendar__tile {
+  height: 100px; /* Height를 적절히 설정 */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.react-calendar__tile abbr {
+  color: black !important; /* 날짜 숫자를 검정으로 설정 */
+}
+
+.hidden {
+  display: none !important; /* 현재 월이 아닌 날짜 숨기기 */
+}
+
+.table-container {
+  background-color: #f0f0f0;
+}
+
+TableRow {
+  width: 300px;
+}
+
+.table-cell {
+  background-color: #e7e7e7;
+}
+
+.add-button-d {
+  margin-bottom: 10px;
+  margin-right: 10px;
+  background-color: white;
+  border: 1px solid white;
+  border-radius: 4px;
+  color: black;
+  font-size: 25px;
+  width: 45px;
+}
+
+.add-button-d:hover {
+  background-color: #e7e7e7;
+}
+
+.delete-button {
+  display: inline-block;
+  padding: 3px;
+  background: #f7f7f7;
+  color: black;
+  border: none;
+  cursor: pointer;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.delete-button:hover {
+  color: #dc3545;
+}
+
+.date-picker {
+  border: none;
+  background: transparent;
+  cursor: pointer;
+}
+
+.react-calendar__tile--now abbr {
+  color: #dc3545 !important;
+}

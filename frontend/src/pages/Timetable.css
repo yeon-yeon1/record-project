@@ -1,0 +1,85 @@
+.timetable-container {
+  width: 90%;
+  max-width: 1200px;
+  margin: auto;
+  padding: 20px;
+}
+
+.controls {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+  justify-content: center;
+}
+
+.controls > * {
+  margin: 10px;
+}
+
+.custom-select {
+  width: 200px;
+}
+
+.custom-input {
+  width: 200px;
+  padding: 10px;
+  font-size: 14px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.custom-button {
+  padding: 10px 20px;
+  font-size: 14px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  background-color: #f7f7f7;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.custom-button:hover {
+  background-color: #e7e7e7;
+}
+
+.timetable th {
+  background-color: #f2f2f2;
+}
+
+.timetable td {
+  position: relative;
+  height: 60px;
+}
+
+.timetable td div {
+  box-sizing: border-box;
+  border: 1px solid #ccc;
+}
+
+.timetable td div:hover {
+  cursor: pointer;
+  opacity: 0.8;
+}
+
+.timetable-wrapper {
+  max-height: 600px; /* 원하는 높이 설정 */
+  overflow-y: auto; /* 세로 스크롤 가능 */
+}
+
+.timetable {
+  border-collapse: collapse;
+  width: 100%; /* 전체 너비를 사용하도록 설정 */
+  table-layout: fixed; /* 고정된 레이아웃 사용 */
+}
+
+.timetable th,
+.timetable td {
+  border: 1px solid #ddd;
+  padding: 2px; /* 패딩을 줄여서 셀 크기 축소 */
+  text-align: center;
+  font-size: 12px; /* 폰트 크기 축소 */
+}
+
+.timeline {
+  padding-bottom: 10px;
+}

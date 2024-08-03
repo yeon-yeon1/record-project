@@ -1,0 +1,82 @@
+/* src/pages/AddProject.css */
+
+.add-project-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+  margin: 20px auto;
+  max-width: 500px;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  background-color: #f9f9f9;
+}
+
+.add-project-container h2 {
+  margin-bottom: 20px;
+}
+
+.add-project-container input,
+.add-project-container textarea {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.add-project-container .dropzone {
+  width: 100%;
+  padding: 20px;
+  border: 2px dashed #ccc;
+  border-radius: 5px;
+  text-align: center;
+  cursor: pointer;
+  margin-bottom: 20px;
+}
+
+.add-project-container .dropzone p {
+  margin: 0;
+}
+
+.add-project-container button {
+  padding: 10px 20px;
+  margin: 5px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  background-color: #007bff;
+  color: white;
+  font-size: 16px;
+}
+
+.add-project-container button:hover {
+  background-color: #0056b3;
+}
+
+/* src/pages/AddProject.css */
+
+.add-project-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  width: 300px;
+  gap: 10px;
+}
+
+.image-preview {
+  width: 100%; /* input 박스 크기만큼 조정 */
+  max-width: 300px;
+  margin-top: 10px;
+}
+
+.input-white {
+  background-color: white;
+  color: black;
+}

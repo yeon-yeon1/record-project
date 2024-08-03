@@ -12,8 +12,8 @@ const Navbar = () => {
   const [pages, setPages] = useState([]);
   const defaultPages = [
     { name: "Projects", path: "projects" },
-    { name: "Todo", path: "Todo" },
-    { name: "Gallery", path: "gallery" },
+    { name: "Certifications", path: "certifications" },
+    { name: "Dailywrite", path: "dailywrite" },
     { name: "Notes", path: "notes" },
   ];
   const [newPageName, setNewPageName] = useState("");
@@ -94,27 +94,25 @@ const Navbar = () => {
 
   const handlePageAdd = () => {
     const pageName = newPageName.trim();
-    if (pageName && !pages.includes(pageName)) {
-      const updatedPages = [...pages, pageName];
+    if (pageName && !pages.find((p) => p.name === pageName)) {
+      const updatedPages = [...pages, { name: pageName, template: null }];
       setPages(updatedPages);
       setNewPageName("");
       savePages(userId, updatedPages);
       setShowNewPageInput(false);
       setIsPlus(true);
-      setShowMenu(false); // 페이지 추가 후 메뉴 닫기
-      navigate(`/${pageName}`); // 새 페이지로 이동
+      setShowMenu(false);
+      navigate(`/newpage/${pageName}`);
     }
   };
 
   const handleDeletePage = (pageToDelete) => {
-    const updatedPages = pages.filter((page) => page !== pageToDelete);
+    const updatedPages = pages.filter((page) => page.name !== pageToDelete.name);
     setPages(updatedPages);
-
     savePages(userId, updatedPages);
-    saveDeletedPage(userId, pageToDelete); // 기본 페이지 삭제 상태 저장
-
-    if (window.location.pathname === `/${pageToDelete}`) {
-      navigate("/"); // 삭제한 페이지에 있을 경우 홈으로 이동
+    saveDeletedPage(userId, pageToDelete.name);
+    if (window.location.pathname === `/${pageToDelete.name}`) {
+      navigate("/");
     }
   };
 
@@ -133,11 +131,10 @@ const Navbar = () => {
   const loadPages = (userId) => {
     const savedPages = JSON.parse(localStorage.getItem(`pages_${userId}`)) || [];
     const deletedPages = JSON.parse(localStorage.getItem(`deleted_pages_${userId}`)) || [];
-
     const filteredDefaultPages = defaultPages.filter((page) => !deletedPages.includes(page.path));
-
-    const allPages = [...new Set([...filteredDefaultPages.map((p) => p.path), ...savedPages])];
-
+    const allPages = [
+      ...new Set([...filteredDefaultPages.map((p) => ({ name: p.path, template: null })), ...savedPages]),
+    ];
     setPages(allPages);
   };
 
@@ -168,26 +165,26 @@ const Navbar = () => {
           {isAuthenticated && (
             <>
               {defaultPages
-                .filter((page) => pages.includes(page.path))
+                .filter((page) => pages.find((p) => p.name === page.path))
                 .map((page, index) => (
                   <li className="link" key={index}>
                     <div className="link-content">
                       <Link to={`/${page.path}`} onClick={toggleMenu}>
                         {page.name}
                       </Link>
-                      <FaTrash onClick={() => handleDeletePage(page.path)} className="delete-icon" />
+                      <FaTrash onClick={() => handleDeletePage(page)} className="delete-icon" />
                     </div>
                   </li>
                 ))}
             </>
           )}
           {pages
-            .filter((page) => !defaultPages.find((p) => p.path === page))
+            .filter((page) => !defaultPages.find((p) => p.path === page.name))
             .map((page, index) => (
               <li className="link" key={index}>
                 <div className="link-content">
-                  <Link to={`/${page}`} onClick={toggleMenu}>
-                    {page}
+                  <Link to={`/newpage/${page.name}`} onClick={toggleMenu}>
+                    {page.name}
                   </Link>
                   <FaTrash onClick={() => handleDeletePage(page)} className="delete-icon" />
                 </div>

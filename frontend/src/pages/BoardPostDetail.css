@@ -1,0 +1,96 @@
+.board-post-detail-container {
+  width: 80%;
+  margin: auto;
+  padding: 20px;
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  margin-top: 30px;
+}
+
+.back-button,
+.edit-button,
+.save-button,
+.add-divider-button,
+.remove-section-button {
+  display: block;
+  margin: 10px 0;
+  padding: 10px 20px;
+  font-size: 14px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  background-color: #f7f7f7;
+  cursor: pointer;
+  color: black;
+}
+
+.back-button:hover,
+.edit-button:hover,
+.save-button:hover,
+.add-divider-button:hover,
+.remove-section-button:hover {
+  background-color: #e7e7e7;
+}
+
+h2 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+p {
+  font-size: 16px;
+  line-height: 1.5;
+  margin-bottom: 20px;
+}
+
+.sections {
+  margin-top: 20px;
+}
+
+.section {
+  margin-bottom: 20px;
+}
+
+.divider-line {
+  height: 1px;
+  background-color: #ddd;
+  margin: 20px 0;
+}
+
+.section h3 {
+  font-size: 18px;
+  margin-bottom: 10px;
+}
+
+.section p {
+  font-size: 16px;
+  line-height: 1.5;
+}
+
+.post-title-input,
+.post-content-textarea,
+.section-header-input,
+.section-content-textarea {
+  width: 97%;
+  padding: 10px;
+  font-size: 14px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  margin-bottom: 10px;
+}
+
+.section-content-textarea {
+  height: 100px;
+  resize: none;
+}
+
+.divider-post {
+  height: 1px;
+  background-color: #000;
+  margin: 10px 0;
+}
+
+.section {
+  border: 1px solid white;
+}

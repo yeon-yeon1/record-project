@@ -1,0 +1,104 @@
+.home-container {
+  display: flex;
+  align-items: center;
+  padding: 50px;
+  max-width: 600px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  margin: 9rem auto;
+  height: 300px;
+  justify-content: center;
+  margin-bottom: 0;
+  padding-left: 0;
+  padding-top: 0;
+  padding-bottom: 0;
+}
+
+.ID {
+  display: flex;
+  font-size: 30px;
+  margin-right: 30px;
+  margin-top: 10px;
+  border: 2px solid gray;
+  justify-content: center;
+  padding-top: 10px;
+  padding-bottom: 13px;
+  width: 160px;
+  border-radius: 4px;
+}
+
+.space {
+  display: flex;
+  justify-content: space-between;
+  margin-left: 60px;
+}
+
+.new-page-container {
+  margin-top: 20px;
+  text-align: center;
+  width: 100%; /* Added to make the grid container span the full width */
+}
+
+.template-buttons-h {
+  display: grid;
+  grid-template-columns: 1fr 1fr; /* Two columns */
+  grid-gap: 10px;
+  justify-items: center; /* Center align buttons horizontally */
+  align-items: center; /* Center align buttons vertically */
+  text-align: center;
+  font-size: 15px;
+  cursor: pointer;
+  width: 100px; /* Adjust width as needed */
+  height: 40px; /* Adjust height as needed */
+  margin-left: 70px;
+}
+
+.template-button-h button {
+  display: flex;
+  text-align: center;
+  align-items: center;
+}
+
+.template-button-h {
+  cursor: pointer;
+  width: 100px; /* Adjust width as needed */
+  height: 50px; /* Adjust height as needed */
+  background-color: #19879e;
+  border: 1px solid #19879e;
+  border-radius: 4px;
+  color: white;
+}
+.template-button-h:hover {
+  background-color: #165f72;
+}
+
+.p-b {
+  display: flex;
+  justify-content: space-between;
+}
+
+.template-button-h-l,
+.template-button-h-p {
+  cursor: pointer;
+  width: 100px; /* Adjust width as needed */
+  height: 50px; /* Adjust height as needed */
+  background-color: #f0f0f0;
+  border: 1px solid #f0f0f0;
+  border-radius: 4px;
+  color: black;
+  margin-left: 70px;
+}
+
+.template-button-h-l:hover,
+.template-button-h-p:hover {
+  background-color: #e7e7e7;
+}
+
+.abl {
+  display: flex;
+  width: 70%;
+  float: right;
+  margin-top: 400px;
+  margin-bottom: 380px;
+}

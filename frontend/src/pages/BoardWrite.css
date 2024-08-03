@@ -1,0 +1,88 @@
+.board-write-container {
+  width: 80%;
+  margin: auto;
+  padding: 20px;
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  margin-top: 30px;
+}
+
+.back-button-write,
+.save-button,
+.add-divider-button,
+.remove-section-button {
+  display: block;
+  margin: 10px 0;
+  padding: 10px 20px;
+  font-size: 14px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  background-color: #f7f7f7;
+  cursor: pointer;
+  color: black;
+}
+
+.back-button-write:hover,
+.save-button:hover,
+.add-divider-button:hover,
+.remove-section-button:hover {
+  background-color: #e7e7e7;
+}
+
+.post-title-input {
+  width: 100%;
+  padding: 10px;
+  font-size: 14px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  margin-bottom: 10px;
+}
+
+.post-content-textarea {
+  width: 100%;
+  height: 150px;
+  padding: 10px;
+  font-size: 14px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  resize: none;
+  margin-bottom: 10px;
+}
+
+.divider {
+  height: 1px;
+  background-color: #ddd;
+  margin: 20px 0;
+}
+
+.post-sections .section {
+  padding: 10px;
+  border: 1px solid white;
+  border-radius: 4px;
+  margin-bottom: 10px;
+}
+
+.post-sections .section .textarea-button-wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.section-content-textarea {
+  width: 90%;
+  height: 100px;
+  padding: 10px;
+  font-size: 14px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  resize: none;
+  margin-bottom: 10px;
+}
+
+.line-divider {
+  height: 1px;
+  background-color: #ddd;
+  margin: 10px 0;
+}

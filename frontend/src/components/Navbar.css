@@ -2,8 +2,8 @@ nav.navbar {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 1.7rem;
-  background-color: #333;
+  padding: 1rem;
+  background-color: #fff;
   color: #fff;
 }
 
@@ -11,9 +11,9 @@ nav.navbar {
   font-size: 1.5rem;
   cursor: pointer;
   z-index: 1100; /* 메뉴 바보다 앞에 있도록 설정 */
-  position: fixed; /* 아이콘을 고정 위치로 설정 */
   top: 1rem; /* 화면 상단에서의 위치 */
   left: 1rem; /* 화면 왼쪽에서의 위치 */
+  color: #333;
 }
 
 .navbar-add-icon {
@@ -62,7 +62,7 @@ nav.navbar {
 
 .navbar-user-id {
   font-weight: bold;
-  color: white;
+  color: #333;
   height: 5px;
   padding: 10px 15px 20px;
   margin: 0px;
@@ -71,7 +71,7 @@ nav.navbar {
   letter-spacing: 1px;
   font-size: 13px;
   text-decoration: none;
-  background-color: #000d1b;
+  background-color: white;
   border-radius: 10px;
 }
 
@@ -187,4 +187,8 @@ a:active {
   display: flex;
   height: 5px;
   align-items: center;
+}
+
+.logout-button a {
+  color: #333;
 }

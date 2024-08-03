@@ -1,0 +1,150 @@
+.board-container {
+  width: 80%;
+  margin: auto;
+  padding: 20px;
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  margin-top: 30px;
+}
+
+h2 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.back-button-board,
+.create-button,
+.new-post-buttons button {
+  display: block;
+  margin: 10px 0;
+  padding: 10px 20px;
+  font-size: 14px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  background-color: #f7f7f7;
+  cursor: pointer;
+  color: black;
+}
+
+.add-board-button {
+  display: block;
+  margin: 10px 0;
+  padding: 10px 20px;
+  font-size: 14px;
+  font-weight: bold;
+  border: 1px solid white;
+  border-radius: 4px;
+  background-color: white;
+  cursor: pointer;
+  color: black;
+}
+
+.back-plus {
+  display: flex;
+  justify-content: space-between;
+}
+
+.add-board-button:hover,
+.back-button:hover,
+.create-button:hover,
+.new-post-buttons button:hover {
+  background-color: #e7e7e7;
+}
+
+.new-post {
+  margin-bottom: 20px;
+}
+
+.new-post-title {
+  width: 100%;
+  padding: 10px;
+  font-size: 14px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  margin-bottom: 10px;
+}
+
+.new-post-content {
+  width: 100%;
+  height: 100px;
+  padding: 10px;
+  font-size: 14px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  resize: none;
+  margin-bottom: 10px;
+}
+
+.new-post-buttons {
+  display: flex;
+  justify-content: space-between;
+}
+
+.posts .post {
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  margin-bottom: 10px;
+}
+
+.posts .post h3 {
+  margin: 0;
+  margin-bottom: 5px;
+}
+
+.posts .post p {
+  margin: 0;
+  margin-bottom: 5px;
+}
+
+.posts .post span {
+  font-size: 12px;
+  color: #999;
+}
+
+.delete-button-board {
+  background-color: white;
+  border: 1px solid white;
+  font-size: 30px;
+  padding-right: 15px;
+  color: black;
+}
+
+.delete-button-board:hover {
+  color: #dc3545;
+}
+
+.post-header {
+  display: flex;
+  justify-content: space-between;
+}
+
+.divline {
+  height: 2px;
+  background: #19879e;
+  margin: 20px 0;
+  width: 100%;
+}
+
+.new-board-input {
+  display: flex;
+}
+
+.new-board {
+  width: 80%;
+  height: 25px;
+  margin: 10px;
+  margin-left: 20px;
+  padding: 5px;
+}
+
+.new-board-btn {
+  width: 50px;
+  height: 40px;
+  margin: 10px;
+  margin-left: 5px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}

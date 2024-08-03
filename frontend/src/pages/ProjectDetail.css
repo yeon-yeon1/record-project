@@ -1,0 +1,149 @@
+.project-detail-container {
+  max-width: 800px;
+  margin: auto;
+  padding: 20px;
+  background: #fff;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  animation: fadeIn 1s ease-in-out;
+  margin-top: 30px;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.back-button,
+.update-button,
+.delete-button-p,
+.add-divider-button {
+  display: inline-block;
+  margin: 10px;
+  padding: 10px 20px;
+  background: #f7f7f7;
+  color: black;
+  border: none;
+  cursor: pointer;
+  transition: background 0.3s ease;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.back-button:hover,
+.update-button:hover,
+.delete-button-p:hover,
+.add-divider-button:hover {
+  background: #e7e7e7;
+}
+
+.project-title-input,
+.project-description-input,
+.section-header-input {
+  width: 97%;
+  margin: 10px 0;
+  padding: 10px;
+  border: 1px solid white;
+  border-radius: 4px;
+}
+
+.project-title-input {
+  border-bottom: 1px solid #ccc;
+  margin-top: 20px;
+}
+
+.project-description-input {
+  margin-bottom: 0;
+}
+
+.section-content-textarea {
+  flex: 1; /* 텍스트 영역을 가능한 한 크게 설정 */
+  margin: 10px 0;
+  padding: 10px;
+  border: 1px solid white;
+  border-radius: 4px;
+  resize: vertical;
+}
+
+.project-title-input {
+  font-size: 23px;
+  font-weight: bold;
+}
+
+.project-description-input {
+  font-size: 15px;
+}
+
+.project-image {
+  width: 100%;
+  max-height: 400px;
+  object-fit: cover;
+  margin: 20px 0;
+  animation: fadeIn 1s ease-in-out;
+}
+
+.description-container {
+  margin-top: 20px;
+}
+
+.section {
+  margin-bottom: 20px;
+  animation: fadeIn 1s ease-in-out;
+}
+
+.textarea-button-wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.remove-section-button {
+  flex-shrink: 0; /* 버튼 크기 고정 */
+  background: none;
+  color: gray;
+  border: none;
+  cursor: pointer;
+  margin-left: 20px;
+}
+
+.line-divider {
+  height: 1px;
+  background: #ccc;
+  margin: 20px 0;
+  width: 100%; /* 구분선이 수평으로 보이도록 설정 */
+}
+
+.divider-line {
+  height: 1px;
+  background: #000;
+  margin: 20px 0;
+  width: 100%; /* 구분선이 수평으로 보이도록 설정 */
+}
+
+.divider {
+  height: 2px;
+  background: #19879e;
+  margin: 20px 0;
+  width: 100%; /* 구분선이 수평으로 보이도록 설정 */
+}
+
+.add-divider-button {
+  display: inline-block;
+  margin: 10px 0;
+  padding: 10px 20px;
+  margin-left: 11px;
+  background: #19879e;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.add-divider-button:hover {
+  background: #0f5563;
+}

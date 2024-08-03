@@ -1,0 +1,17 @@
+.new-page-container {
+  text-align: center;
+  padding: 20px;
+}
+
+.template-buttons {
+  margin-top: 280px;
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+}
+
+.template-button {
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+}

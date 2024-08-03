@@ -1,0 +1,45 @@
+.date-picker-save-container {
+  display: flex;
+  align-items: center;
+  float: right;
+}
+
+.edit-button-d {
+  display: inline-block;
+  margin: 10px;
+  padding: 10px 20px;
+  background: #19879e;
+  color: white;
+  border: 1px solid #19879e;
+  border-radius: 4px;
+}
+
+.edit-button-d:hover {
+  background: #0f5563;
+}
+
+.dailywrite-detail-container {
+  width: 80%;
+  margin: auto;
+  padding: 20px;
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  margin-top: 30px;
+}
+
+.size {
+  width: 90%;
+  margin-left: 45px;
+  margin-top: 20px;
+}
+
+.date-picker {
+  text-align: right;
+  margin-right: 15px;
+  padding-right: 2px;
+  width: 83px;
+  font-size: 16px;
+  color: #042930;
+}
