@@ -72,7 +72,7 @@ const Notes = () => {
       });
 
       Object.keys(postsBySubject).forEach((subject) => {
-        postsBySubject[subject].sort((a, b) => a.title.localeCompare(b.title, "ko")); // 한글 제목 순서로 정렬
+        postsBySubject[subject].sort((a, b) => a.title.localeCompare(b.title, "ko"));
       });
 
       setBoardPosts(postsBySubject);
@@ -85,6 +85,7 @@ const Notes = () => {
         const q = query(collection(db, "NotesNotes"), where("uid", "==", auth.currentUser.uid));
         const querySnapshot = await getDocs(q);
         const notesList = querySnapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
+        notesList.sort((a, b) => a.createdAt - b.createdAt);
         setNotes(notesList);
       }
     };
@@ -106,7 +107,6 @@ const Notes = () => {
         const mergedSchedule = Object.assign({}, ...timetableList);
         setTimetable(mergedSchedule);
 
-        // Create posts for timetable subjects
         for (const key in mergedSchedule) {
           if (mergedSchedule[key]?.subject) {
             const subject = mergedSchedule[key].subject;
@@ -121,7 +121,7 @@ const Notes = () => {
         const q = query(collection(db, "Subjects"), where("uid", "==", auth.currentUser.uid));
         const querySnapshot = await getDocs(q);
         const subjectsList = querySnapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
-        subjectsList.sort((a, b) => b.createdAt.seconds - a.createdAt.seconds); // 정렬 추가 (역순)
+        subjectsList.sort((a, b) => a.createdAt.seconds - b.createdAt.seconds);
         setSubjects(subjectsList);
       }
     };
@@ -143,9 +143,8 @@ const Notes = () => {
         title: `${subject} 게시판`,
         content: `게시판 내용: ${subject} 게시판`,
         createdAt: new Date(),
-        fromDetail: false, // Timetable에서 생성된 글
+        fromDetail: false,
       });
-      // Refetch posts to update the list
       fetchBoardPosts();
     }
   };
@@ -157,8 +156,9 @@ const Notes = () => {
         text: newNote,
         createdAt: new Date(),
       });
-      setNotes([...notes, { id: docRef.id, text: newNote }]);
+      setNotes([...notes, { id: docRef.id, text: newNote, createdAt: new Date() }]);
       setNewNote("");
+      setNotes((prevNotes) => [...prevNotes].sort((a, b) => a.createdAt - b.createdAt));
     }
   };
 
@@ -189,11 +189,9 @@ const Notes = () => {
 
   const handleSubjectClick = async (subject) => {
     if (subject) {
-      // Firebase Firestore에 선택된 과목 저장
       const userRef = doc(db, "Users", auth.currentUser.uid);
       await setDoc(userRef, { selectedSubject: subject }, { merge: true });
 
-      // 제목을 "과목 목록 게시판"으로 고정하고 URL 인코딩
       const encodedSubject = encodeURIComponent("과목 목록 게시판");
       navigate(`/board/${encodedSubject}`);
     }

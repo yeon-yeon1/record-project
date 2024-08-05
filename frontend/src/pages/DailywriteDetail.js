@@ -1,20 +1,21 @@
 import React, { useState, useEffect } from "react";
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams, useNavigate, useLocation } from "react-router-dom";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { db, auth } from "../firebase";
-import { doc, getDoc, updateDoc, setDoc } from "firebase/firestore";
+import { doc, getDoc, updateDoc, setDoc, collection } from "firebase/firestore";
 import "./DailywriteDetail.css";
 
 const DailywriteDetail = () => {
   const { diaryId } = useParams();
+  const location = useLocation();
   const [diary, setDiary] = useState(null);
   const [originalDiary, setOriginalDiary] = useState(null);
   const [isEditing, setIsEditing] = useState(false);
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const [sections, setSections] = useState([]);
-  const [selectedDate, setSelectedDate] = useState(new Date());
+  const [selectedDate, setSelectedDate] = useState(new Date(location.state?.selectedDate || new Date()));
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -100,7 +101,7 @@ const DailywriteDetail = () => {
       const docRef = doc(db, "Diaries", diaryId);
       await updateDoc(docRef, updatedDiary);
     } else {
-      const newDiaryRef = doc(db, "Diaries", `${new Date().toISOString()}`);
+      const newDiaryRef = doc(collection(db, "Diaries"));
       await setDoc(newDiaryRef, updatedDiary);
     }
 
@@ -108,6 +109,7 @@ const DailywriteDetail = () => {
     setOriginalDiary(updatedDiary);
     setIsEditing(false);
     alert("일기가 저장되었습니다.");
+    navigate("/dailywrite");
   };
 
   return (

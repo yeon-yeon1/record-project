@@ -2,13 +2,20 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { db, auth } from "../firebase";
 import { collection, getDocs, query, where, deleteDoc, doc, getDoc, addDoc } from "firebase/firestore";
+import Select from "react-select";
 import "./Board.css";
+
+const sortOptions = [
+  { value: "title", label: "제목 순" },
+  { value: "createdAt", label: "생성일 순" },
+];
 
 const Board = () => {
   const [posts, setPosts] = useState({});
-  const [selectedSubject, setSelectedSubject] = useState("");
+  const [selectedSubject, setSelectedSubject] = useState(localStorage.getItem("selectedSubject") || "");
   const [newBoardTitle, setNewBoardTitle] = useState("");
   const [showNewBoardInput, setShowNewBoardInput] = useState(false);
+  const [sortCriteria, setSortCriteria] = useState(JSON.parse(localStorage.getItem("sortCriteria")) || sortOptions[0]);
   const navigate = useNavigate();
 
   const fetchPosts = async () => {
@@ -25,11 +32,10 @@ const Board = () => {
         postsBySubject[post.subject].push(post);
       });
 
-      // 정렬 로직 추가: 한글 제목 순서로 정렬
       const sortedPostsBySubject = Object.keys(postsBySubject)
         .sort((a, b) => a.localeCompare(b, "ko"))
         .reduce((acc, subject) => {
-          acc[subject] = postsBySubject[subject].sort((a, b) => a.createdAt.seconds - b.createdAt.seconds); // 생성순으로 정렬
+          acc[subject] = sortPosts(postsBySubject[subject]);
           return acc;
         }, {});
 
@@ -43,6 +49,7 @@ const Board = () => {
         const userDoc = await getDoc(doc(db, "Users", auth.currentUser.uid));
         if (userDoc.exists()) {
           setSelectedSubject(userDoc.data().selectedSubject);
+          localStorage.setItem("selectedSubject", userDoc.data().selectedSubject);
         }
       }
     };
@@ -52,7 +59,7 @@ const Board = () => {
 
   useEffect(() => {
     fetchPosts();
-  }, [selectedSubject]);
+  }, [selectedSubject, sortCriteria]);
 
   const handleDeletePost = async (subject, postId) => {
     await deleteDoc(doc(db, "Posts", postId));
@@ -73,7 +80,6 @@ const Board = () => {
       return;
     }
 
-    // Add new board to Firestore
     await addDoc(collection(db, "Posts"), {
       uid: auth.currentUser.uid,
       subject: newBoardTitle,
@@ -83,17 +89,31 @@ const Board = () => {
       fromDetail: false,
     });
 
-    // Clear input and hide input field
     setNewBoardTitle("");
     setShowNewBoardInput(false);
 
-    // Refresh posts
     fetchPosts();
   };
 
   const handleCancel = () => {
     setNewBoardTitle("");
     setShowNewBoardInput(false);
+  };
+
+  const handleSortChange = (selectedOption) => {
+    setSortCriteria(selectedOption);
+    localStorage.setItem("sortCriteria", JSON.stringify(selectedOption));
+  };
+
+  const sortPosts = (posts) => {
+    return posts.sort((a, b) => {
+      if (sortCriteria.value === "title") {
+        return a.title.localeCompare(b.title, "ko");
+      } else if (sortCriteria.value === "createdAt") {
+        return new Date(a.createdAt.toDate()) - new Date(b.createdAt.toDate());
+      }
+      return 0;
+    });
   };
 
   return (
@@ -134,32 +154,30 @@ const Board = () => {
             const uniquePostTitles = new Set();
             return (
               <div key={index}>
-                {posts[subject]
-                  .sort((a, b) => a.title.localeCompare(b.title, "ko")) // 한글 제목 순서로 정렬
-                  .map((post) => {
-                    if (!uniquePostTitles.has(post.title)) {
-                      uniquePostTitles.add(post.title);
-                      return (
-                        <div key={post.id} className="post" onClick={() => handlePostClick(post.id, post.title)}>
-                          <div className="post-header">
-                            <h3>{post.title}</h3>
-                            <button
-                              className="delete-button-board"
-                              onClick={(e) => {
-                                e.stopPropagation();
-                                handleDeletePost(post.subject, post.id);
-                              }}
-                            >
-                              -
-                            </button>
-                          </div>
-                          <span>{new Date(post.createdAt.toDate()).toLocaleString()}</span>
+                {posts[subject].map((post) => {
+                  if (!uniquePostTitles.has(post.title)) {
+                    uniquePostTitles.add(post.title);
+                    return (
+                      <div key={post.id} className="post" onClick={() => handlePostClick(post.id, post.title)}>
+                        <div className="post-header">
+                          <h3>{post.title}</h3>
+                          <button
+                            className="delete-button-board"
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              handleDeletePost(post.subject, post.id);
+                            }}
+                          >
+                            -
+                          </button>
                         </div>
-                      );
-                    } else {
-                      return null;
-                    }
-                  })}
+                        <span>{new Date(post.createdAt.toDate()).toLocaleString()}</span>
+                      </div>
+                    );
+                  } else {
+                    return null;
+                  }
+                })}
               </div>
             );
           })}

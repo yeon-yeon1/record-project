@@ -59,7 +59,7 @@ const Timetable = () => {
   const [schedule, setSchedule] = useState({});
   const [dragging, setDragging] = useState(false);
   const [startCell, setStartCell] = useState(null);
-  const [colorPickerVisible, setColorPickerVisible] = useState(false); // 색상 선택기 표시 여부 상태 추가
+  const [colorPickerVisible, setColorPickerVisible] = useState(false);
   const colorPickerRef = useRef(null);
   const navigate = useNavigate();
 
@@ -111,7 +111,6 @@ const Timetable = () => {
           schedule: newSchedule,
         });
 
-        // 게시글 생성
         await addDoc(collection(db, "Posts"), {
           uid: auth.currentUser.uid,
           subject,
@@ -194,12 +193,12 @@ const Timetable = () => {
           styles={{
             menu: (provided) => ({
               ...provided,
-              maxHeight: "200px", // 최대 높이 설정
+              maxHeight: "200px",
             }),
             menuList: (provided) => ({
               ...provided,
-              maxHeight: "200px", // 최대 높이 설정
-              overflowY: "auto", // 세로 스크롤
+              maxHeight: "200px",
+              overflowY: "auto",
               display: "flex",
               flexDirection: "column",
             }),

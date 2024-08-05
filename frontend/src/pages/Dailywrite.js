@@ -5,7 +5,7 @@ import Calendar from "react-calendar";
 import "react-calendar/dist/Calendar.css";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import { collection, query, onSnapshot, doc, updateDoc, where } from "firebase/firestore";
+import { collection, query, onSnapshot, doc, updateDoc, deleteDoc, where } from "firebase/firestore";
 import { db, auth } from "../firebase";
 import "./Dailywrite.css";
 
@@ -55,6 +55,18 @@ const Dailywrite = () => {
     });
   };
 
+  const handleDelete = async (diaryId) => {
+    if (window.confirm("정말 이 일기를 삭제하시겠습니까?")) {
+      const docRef = doc(db, "Diaries", diaryId);
+      await deleteDoc(docRef);
+      setDiaries(diaries.filter((diary) => diary.id !== diaryId));
+    }
+  };
+
+  const handleAddDiary = () => {
+    navigate("/dailywrite-detail", { state: { selectedDate } });
+  };
+
   const filteredDiaries = diaries.filter((diary) => diary.date === formatDate(selectedDate));
 
   return (
@@ -72,7 +84,7 @@ const Dailywrite = () => {
       <div className="diary-section">
         <div className="back-plus">
           <h2>Record</h2>
-          <button variant="contained" className="add-button-d" onClick={() => navigate("/dailywrite-detail")}>
+          <button variant="contained" className="add-button-d" onClick={handleAddDiary}>
             +
           </button>
         </div>
@@ -102,7 +114,14 @@ const Dailywrite = () => {
                     />
                   </TableCell>
                   <TableCell>
-                    <button variant="contained" className="delete-button">
+                    <button
+                      variant="contained"
+                      className="delete-button"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        handleDelete(diary.id);
+                      }}
+                    >
                       Delete
                     </button>
                   </TableCell>

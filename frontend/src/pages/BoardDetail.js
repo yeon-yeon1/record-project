@@ -24,7 +24,7 @@ const BoardDetail = () => {
         const q = query(collection(db, "Posts"), where("boardId", "==", boardId), where("fromDetail", "==", true));
         const querySnapshot = await getDocs(q);
         const postsList = querySnapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
-        postsList.sort((a, b) => b.createdAt.seconds - a.createdAt.seconds); // 역순으로 정렬
+        postsList.sort((a, b) => b.createdAt.seconds - a.createdAt.seconds);
         setPosts(postsList);
       } else {
         console.error("Invalid subject or boardId");
@@ -38,7 +38,7 @@ const BoardDetail = () => {
 
   const handleDeletePost = async (postId) => {
     await deleteDoc(doc(db, "Posts", postId));
-    fetchPosts(); // 글 삭제 후 목록 갱신
+    fetchPosts();
   };
 
   const handleBack = () => {
@@ -80,7 +80,7 @@ const BoardDetail = () => {
                 -
               </button>
             </div>
-            <p>{post.content.substring(0, 100)}...</p> {/* 간단한 설명 표시 */}
+            <p>{post.content.substring(0, 100)}...</p>
             <span>{new Date(post.createdAt.toDate()).toLocaleString()}</span>
           </div>
         ))}
