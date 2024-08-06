@@ -3,12 +3,9 @@ import { useNavigate } from "react-router-dom";
 import { Button, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper } from "@mui/material";
 import Calendar from "react-calendar";
 import "react-calendar/dist/Calendar.css";
-import DatePicker from "react-datepicker";
-import "react-datepicker/dist/react-datepicker.css";
 import { collection, query, onSnapshot, doc, updateDoc, deleteDoc, where } from "firebase/firestore";
 import { db, auth } from "../firebase";
-import { format, parse } from "date-fns";
-import { ko } from "date-fns/locale";
+import { format } from "date-fns";
 import "./Dailywrite.css";
 
 const Dailywrite = () => {
@@ -44,11 +41,11 @@ const Dailywrite = () => {
   };
 
   const formatDate = (date) => {
-    return format(date, "yyyy.MM.dd", { locale: ko });
+    return format(date, "yyyy.MM.dd");
   };
 
   const handleDateChange = async (date, diaryId) => {
-    const formattedDate = format(date, "yyyy.MM.dd", { locale: ko });
+    const formattedDate = format(date, "yyyy.MM.dd");
     const docRef = doc(db, "Diaries", diaryId);
     await updateDoc(docRef, {
       date: formattedDate,
@@ -74,13 +71,12 @@ const Dailywrite = () => {
           defaultValue={today}
           tileClassName={tileClassName}
           onChange={(date) => setSelectedDate(date)}
-          locale="ko-KR"
         />
       </div>
       <div className="diary-section">
         <div className="back-plus">
           <h2>Record</h2>
-          <button variant="contained" className="add-button-d" onClick={() => navigate("/dailywrite-detail")}>
+          <button className="add-button-d" onClick={() => navigate("/dailywrite-detail")}>
             +
           </button>
         </div>
@@ -94,24 +90,16 @@ const Dailywrite = () => {
               </TableRow>
             </TableHead>
             <TableBody>
-              {filteredDiaries.map((diary, index) => (
+              {filteredDiaries.map((diary) => (
                 <TableRow
-                  key={index}
+                  key={diary.id}
                   onClick={() => navigate(`/dailywrite-detail/${diary.id}`)}
                   style={{ cursor: "pointer" }}
                 >
                   <TableCell>{diary.title}</TableCell>
-                  <TableCell onClick={(e) => e.stopPropagation()}>
-                    <DatePicker
-                      selected={parse(diary.date, "yyyy.MM.dd", new Date())}
-                      onChange={(date) => handleDateChange(date, diary.id)}
-                      dateFormat="yyyy.MM.dd"
-                      className="date-picker"
-                    />
-                  </TableCell>
+                  <TableCell onClick={(e) => e.stopPropagation()}>{diary.date}</TableCell>
                   <TableCell>
                     <button
-                      variant="contained"
                       className="delete-button"
                       onClick={(e) => {
                         e.stopPropagation();

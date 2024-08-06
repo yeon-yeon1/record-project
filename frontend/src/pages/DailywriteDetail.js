@@ -1,11 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { useParams, useNavigate, useLocation } from "react-router-dom";
-import DatePicker from "react-datepicker";
-import "react-datepicker/dist/react-datepicker.css";
 import { db, auth } from "../firebase";
 import { doc, getDoc, updateDoc, setDoc, collection } from "firebase/firestore";
 import { format } from "date-fns";
-import { ko } from "date-fns/locale";
 import "./DailywriteDetail.css";
 
 const DailywriteDetail = () => {
@@ -85,7 +82,7 @@ const DailywriteDetail = () => {
   };
 
   const handleSave = async () => {
-    const user = auth.currentUser; // 현재 로그인된 사용자를 가져옵니다
+    const user = auth.currentUser;
     if (!user) {
       alert("로그인이 필요합니다.");
       return;
@@ -95,8 +92,8 @@ const DailywriteDetail = () => {
       title,
       content,
       sections,
-      date: format(selectedDate, "yyyy.MM.dd", { locale: ko }),
-      uid: user.uid, // UID를 추가합니다
+      date: format(selectedDate, "yyyy.MM.dd"),
+      uid: user.uid,
     };
 
     if (diaryId) {
@@ -121,10 +118,10 @@ const DailywriteDetail = () => {
           뒤로가기
         </button>
         <div className="date-picker-save-container">
-          <DatePicker
-            selected={selectedDate}
-            onChange={(date) => setSelectedDate(date)}
-            dateFormat="yyyy.MM.dd"
+          <input
+            type="date"
+            value={format(selectedDate, "yyyy-MM-dd")}
+            onChange={(e) => setSelectedDate(new Date(e.target.value))}
             className="date-picker"
           />
           {!isEditing && (
