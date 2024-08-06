@@ -7,6 +7,8 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { collection, query, onSnapshot, doc, updateDoc, deleteDoc, where } from "firebase/firestore";
 import { db, auth } from "../firebase";
+import { format, parse } from "date-fns";
+import { ko } from "date-fns/locale";
 import "./Dailywrite.css";
 
 const Dailywrite = () => {
@@ -42,16 +44,14 @@ const Dailywrite = () => {
   };
 
   const formatDate = (date) => {
-    const year = date.getFullYear();
-    const month = (date.getMonth() + 1).toString().padStart(2, "0");
-    const day = date.getDate().toString().padStart(2, "0");
-    return `${year}. ${month}. ${day}.`;
+    return format(date, "yyyy.MM.dd", { locale: ko });
   };
 
   const handleDateChange = async (date, diaryId) => {
+    const formattedDate = format(date, "yyyy.MM.dd", { locale: ko });
     const docRef = doc(db, "Diaries", diaryId);
     await updateDoc(docRef, {
-      date: date.toLocaleDateString("ko-KR", { year: "numeric", month: "2-digit", day: "2-digit" }),
+      date: formattedDate,
     });
   };
 
@@ -103,7 +103,7 @@ const Dailywrite = () => {
                   <TableCell>{diary.title}</TableCell>
                   <TableCell onClick={(e) => e.stopPropagation()}>
                     <DatePicker
-                      selected={new Date(diary.date)}
+                      selected={parse(diary.date, "yyyy.MM.dd", new Date())}
                       onChange={(date) => handleDateChange(date, diary.id)}
                       dateFormat="yyyy.MM.dd"
                       className="date-picker"

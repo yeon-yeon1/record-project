@@ -4,6 +4,8 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { db, auth } from "../firebase";
 import { doc, getDoc, updateDoc, setDoc, collection } from "firebase/firestore";
+import { format } from "date-fns";
+import { ko } from "date-fns/locale";
 import "./DailywriteDetail.css";
 
 const DailywriteDetail = () => {
@@ -93,7 +95,7 @@ const DailywriteDetail = () => {
       title,
       content,
       sections,
-      date: selectedDate.toLocaleDateString("ko-KR", { year: "numeric", month: "2-digit", day: "2-digit" }),
+      date: format(selectedDate, "yyyy.MM.dd", { locale: ko }),
       uid: user.uid, // UID를 추가합니다
     };
 
@@ -205,5 +207,3 @@ const DailywriteDetail = () => {
 };
 
 export default DailywriteDetail;
-
-// dd
