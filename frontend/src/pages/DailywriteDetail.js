@@ -1,20 +1,20 @@
 import React, { useState, useEffect } from "react";
-import { useParams, useNavigate, useLocation } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 import { db, auth } from "../firebase";
-import { doc, getDoc, updateDoc, setDoc, collection } from "firebase/firestore";
-import { format } from "date-fns";
+import { doc, getDoc, updateDoc, setDoc } from "firebase/firestore";
 import "./DailywriteDetail.css";
 
 const DailywriteDetail = () => {
   const { diaryId } = useParams();
-  const location = useLocation();
   const [diary, setDiary] = useState(null);
   const [originalDiary, setOriginalDiary] = useState(null);
   const [isEditing, setIsEditing] = useState(false);
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const [sections, setSections] = useState([]);
-  const [selectedDate, setSelectedDate] = useState(new Date(location.state?.selectedDate || new Date()));
+  const [selectedDate, setSelectedDate] = useState(new Date());
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -82,7 +82,7 @@ const DailywriteDetail = () => {
   };
 
   const handleSave = async () => {
-    const user = auth.currentUser;
+    const user = auth.currentUser; // 현재 로그인된 사용자를 가져옵니다
     if (!user) {
       alert("로그인이 필요합니다.");
       return;
@@ -92,15 +92,15 @@ const DailywriteDetail = () => {
       title,
       content,
       sections,
-      date: format(selectedDate, "yyyy.MM.dd"),
-      uid: user.uid,
+      date: selectedDate.toLocaleDateString("ko-KR", { year: "numeric", month: "2-digit", day: "2-digit" }),
+      uid: user.uid, // UID를 추가합니다
     };
 
     if (diaryId) {
       const docRef = doc(db, "Diaries", diaryId);
       await updateDoc(docRef, updatedDiary);
     } else {
-      const newDiaryRef = doc(collection(db, "Diaries"));
+      const newDiaryRef = doc(db, "Diaries", `${new Date().toISOString()}`);
       await setDoc(newDiaryRef, updatedDiary);
     }
 
@@ -108,7 +108,6 @@ const DailywriteDetail = () => {
     setOriginalDiary(updatedDiary);
     setIsEditing(false);
     alert("일기가 저장되었습니다.");
-    navigate("/dailywrite");
   };
 
   return (
@@ -118,10 +117,10 @@ const DailywriteDetail = () => {
           뒤로가기
         </button>
         <div className="date-picker-save-container">
-          <input
-            type="date"
-            value={format(selectedDate, "yyyy-MM-dd")}
-            onChange={(e) => setSelectedDate(new Date(e.target.value))}
+          <DatePicker
+            selected={selectedDate}
+            onChange={(date) => setSelectedDate(date)}
+            dateFormat="yyyy.MM.dd"
             className="date-picker"
           />
           {!isEditing && (
@@ -204,3 +203,4 @@ const DailywriteDetail = () => {
 };
 
 export default DailywriteDetail;
+// ㅇㅇ

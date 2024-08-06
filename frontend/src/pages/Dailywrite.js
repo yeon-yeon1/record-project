@@ -3,9 +3,10 @@ import { useNavigate } from "react-router-dom";
 import { Button, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper } from "@mui/material";
 import Calendar from "react-calendar";
 import "react-calendar/dist/Calendar.css";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 import { collection, query, onSnapshot, doc, updateDoc, deleteDoc, where } from "firebase/firestore";
 import { db, auth } from "../firebase";
-import { format } from "date-fns";
 import "./Dailywrite.css";
 
 const Dailywrite = () => {
@@ -41,14 +42,16 @@ const Dailywrite = () => {
   };
 
   const formatDate = (date) => {
-    return format(date, "yyyy.MM.dd");
+    const year = date.getFullYear();
+    const month = (date.getMonth() + 1).toString().padStart(2, "0");
+    const day = date.getDate().toString().padStart(2, "0");
+    return `${year}. ${month}. ${day}.`;
   };
 
   const handleDateChange = async (date, diaryId) => {
-    const formattedDate = format(date, "yyyy.MM.dd");
     const docRef = doc(db, "Diaries", diaryId);
     await updateDoc(docRef, {
-      date: formattedDate,
+      date: date.toLocaleDateString("ko-KR", { year: "numeric", month: "2-digit", day: "2-digit" }),
     });
   };
 
@@ -58,6 +61,10 @@ const Dailywrite = () => {
       await deleteDoc(docRef);
       setDiaries(diaries.filter((diary) => diary.id !== diaryId));
     }
+  };
+
+  const handleAddDiary = () => {
+    navigate("/dailywrite-detail", { state: { selectedDate } });
   };
 
   const filteredDiaries = diaries.filter((diary) => diary.date === formatDate(selectedDate));
@@ -71,12 +78,13 @@ const Dailywrite = () => {
           defaultValue={today}
           tileClassName={tileClassName}
           onChange={(date) => setSelectedDate(date)}
+          locale="ko-KR"
         />
       </div>
       <div className="diary-section">
         <div className="back-plus">
           <h2>Record</h2>
-          <button className="add-button-d" onClick={() => navigate("/dailywrite-detail")}>
+          <button variant="contained" className="add-button-d" onClick={handleAddDiary}>
             +
           </button>
         </div>
@@ -90,16 +98,24 @@ const Dailywrite = () => {
               </TableRow>
             </TableHead>
             <TableBody>
-              {filteredDiaries.map((diary) => (
+              {filteredDiaries.map((diary, index) => (
                 <TableRow
-                  key={diary.id}
+                  key={index}
                   onClick={() => navigate(`/dailywrite-detail/${diary.id}`)}
                   style={{ cursor: "pointer" }}
                 >
                   <TableCell>{diary.title}</TableCell>
-                  <TableCell onClick={(e) => e.stopPropagation()}>{diary.date}</TableCell>
+                  <TableCell onClick={(e) => e.stopPropagation()}>
+                    <DatePicker
+                      selected={new Date(diary.date)}
+                      onChange={(date) => handleDateChange(date, diary.id)}
+                      dateFormat="yyyy.MM.dd"
+                      className="date-picker"
+                    />
+                  </TableCell>
                   <TableCell>
                     <button
+                      variant="contained"
                       className="delete-button"
                       onClick={(e) => {
                         e.stopPropagation();
@@ -120,3 +136,4 @@ const Dailywrite = () => {
 };
 
 export default Dailywrite;
+// asdf
