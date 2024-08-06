@@ -22,7 +22,8 @@ const Dailywrite = () => {
       const unsubscribe = onSnapshot(q, (querySnapshot) => {
         const diariesData = [];
         querySnapshot.forEach((doc) => {
-          diariesData.push({ id: doc.id, ...doc.data() });
+          const data = doc.data();
+          diariesData.push({ id: doc.id, ...data });
         });
         setDiaries(diariesData);
       });
@@ -45,13 +46,14 @@ const Dailywrite = () => {
     const year = date.getFullYear();
     const month = (date.getMonth() + 1).toString().padStart(2, "0");
     const day = date.getDate().toString().padStart(2, "0");
-    return `${year}. ${month}. ${day}.`;
+    return `${year}. ${month}. ${day}`; // 맨 끝의 점 제거
   };
 
   const handleDateChange = async (date, diaryId) => {
     const docRef = doc(db, "Diaries", diaryId);
+    const formattedDate = formatDate(date); // 날짜 형식을 변환
     await updateDoc(docRef, {
-      date: date.toLocaleDateString("ko-KR", { year: "numeric", month: "2-digit", day: "2-digit" }),
+      date: formattedDate,
     });
   };
 
