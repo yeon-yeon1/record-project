@@ -15,10 +15,7 @@ const DailywriteDetail = () => {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const [sections, setSections] = useState([]);
-  const [selectedDate, setSelectedDate] = useState(() => {
-    const initialDate = location.state?.selectedDate ? new Date(location.state.selectedDate) : new Date();
-    return isNaN(initialDate) ? new Date() : initialDate;
-  });
+  const [selectedDate, setSelectedDate] = useState(new Date(location.state?.selectedDate || new Date()));
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -33,14 +30,7 @@ const DailywriteDetail = () => {
           setTitle(diaryData.title);
           setContent(diaryData.content);
           setSections(diaryData.sections || []);
-
-          // 날짜 형식 검증 및 변환
-          const diaryDate = new Date(diaryData.date);
-          if (!isNaN(diaryDate)) {
-            setSelectedDate(diaryDate);
-          } else {
-            setSelectedDate(new Date());
-          }
+          setSelectedDate(new Date(diaryData.date));
         }
       }
     };
@@ -93,7 +83,7 @@ const DailywriteDetail = () => {
   };
 
   const handleSave = async () => {
-    const user = auth.currentUser;
+    const user = auth.currentUser; // 현재 로그인된 사용자를 가져옵니다
     if (!user) {
       alert("로그인이 필요합니다.");
       return;
@@ -103,8 +93,8 @@ const DailywriteDetail = () => {
       title,
       content,
       sections,
-      date: selectedDate.toISOString(), // ISO 형식으로 저장
-      uid: user.uid,
+      date: selectedDate.toLocaleDateString("ko-KR", { year: "numeric", month: "2-digit", day: "2-digit" }),
+      uid: user.uid, // UID를 추가합니다
     };
 
     if (diaryId) {
@@ -215,3 +205,5 @@ const DailywriteDetail = () => {
 };
 
 export default DailywriteDetail;
+
+// dd

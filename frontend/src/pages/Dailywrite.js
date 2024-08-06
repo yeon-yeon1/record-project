@@ -22,8 +22,7 @@ const Dailywrite = () => {
       const unsubscribe = onSnapshot(q, (querySnapshot) => {
         const diariesData = [];
         querySnapshot.forEach((doc) => {
-          const data = doc.data();
-          diariesData.push({ id: doc.id, ...data });
+          diariesData.push({ id: doc.id, ...doc.data() });
         });
         setDiaries(diariesData);
       });
@@ -46,14 +45,13 @@ const Dailywrite = () => {
     const year = date.getFullYear();
     const month = (date.getMonth() + 1).toString().padStart(2, "0");
     const day = date.getDate().toString().padStart(2, "0");
-    return `${year}. ${month}. ${day}`; // 맨 끝의 점 제거
+    return `${year}. ${month}. ${day}.`;
   };
 
   const handleDateChange = async (date, diaryId) => {
     const docRef = doc(db, "Diaries", diaryId);
-    const formattedDate = formatDate(date); // 날짜 형식을 변환
     await updateDoc(docRef, {
-      date: formattedDate,
+      date: date.toLocaleDateString("ko-KR", { year: "numeric", month: "2-digit", day: "2-digit" }),
     });
   };
 
@@ -63,10 +61,6 @@ const Dailywrite = () => {
       await deleteDoc(docRef);
       setDiaries(diaries.filter((diary) => diary.id !== diaryId));
     }
-  };
-
-  const handleAddDiary = () => {
-    navigate("/dailywrite-detail", { state: { selectedDate } });
   };
 
   const filteredDiaries = diaries.filter((diary) => diary.date === formatDate(selectedDate));
@@ -86,7 +80,7 @@ const Dailywrite = () => {
       <div className="diary-section">
         <div className="back-plus">
           <h2>Record</h2>
-          <button variant="contained" className="add-button-d" onClick={handleAddDiary}>
+          <button variant="contained" className="add-button-d" onClick={() => navigate("/dailywrite-detail")}>
             +
           </button>
         </div>
