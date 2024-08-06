@@ -33,7 +33,14 @@ const DailywriteDetail = () => {
           setTitle(diaryData.title);
           setContent(diaryData.content);
           setSections(diaryData.sections || []);
-          setSelectedDate(new Date(diaryData.date));
+
+          // 날짜 형식 검증 및 변환
+          const diaryDate = new Date(diaryData.date);
+          if (!isNaN(diaryDate)) {
+            setSelectedDate(diaryDate);
+          } else {
+            setSelectedDate(new Date());
+          }
         }
       }
     };
@@ -85,13 +92,6 @@ const DailywriteDetail = () => {
     setSections(newSections);
   };
 
-  const formatDate = (date) => {
-    const year = date.getFullYear();
-    const month = (date.getMonth() + 1).toString().padStart(2, "0");
-    const day = date.getDate().toString().padStart(2, "0");
-    return `${year}.${month}.${day}`;
-  };
-
   const handleSave = async () => {
     const user = auth.currentUser;
     if (!user) {
@@ -103,7 +103,7 @@ const DailywriteDetail = () => {
       title,
       content,
       sections,
-      date: formatDate(selectedDate),
+      date: selectedDate.toISOString(), // ISO 형식으로 저장
       uid: user.uid,
     };
 
